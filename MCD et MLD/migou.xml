@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+- phpMyAdmin XML Dump
+- version 4.6.6deb5
+- https://www.phpmyadmin.net
+-
+- Client :  localhost
+- Généré le :  Jeu 24 Janvier 2019 à 13:49
+- Version du serveur :  5.7.24-0ubuntu0.18.04.1
+- Version de PHP :  7.2.10-0ubuntu0.18.04.1
+-->
+
+<pma_xml_export version="1.0" xmlns:pma="https://www.phpmyadmin.net/some_doc_url/">
+    <!--
+    - Structure schemas
+    -->
+    <pma:structure_schemas>
+        <pma:database name="migou" collation="utf8_general_ci" charset="utf8">
+            <pma:table name="achat_direct">
+                CREATE TABLE `achat_direct` (
+                  `id_achat` int(11) NOT NULL AUTO_INCREMENT,
+                  `public_ht` float NOT NULL,
+                  `public_ttc` float NOT NULL,
+                  `quantite` int(11) NOT NULL,
+                  `prix_total` int(11) NOT NULL,
+                  `date` date NOT NULL,
+                  `id_client` int(11) NOT NULL,
+                  `id_vente` int(11) NOT NULL,
+                  PRIMARY KEY (`id_achat`),
+                  UNIQUE KEY `achat_direct_vente0_AK` (`id_vente`),
+                  KEY `achat_direct_client0_FK` (`id_client`),
+                  CONSTRAINT `achat_direct_client0_FK` FOREIGN KEY (`id_client`) REFERENCES `client` (`id_client`),
+                  CONSTRAINT `achat_direct_vente1_FK` FOREIGN KEY (`id_vente`) REFERENCES `vente` (`id_vente`)
+                ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+            </pma:table>
+            <pma:table name="article">
+                CREATE TABLE `article` (
+                  `id_article` int(11) NOT NULL AUTO_INCREMENT,
+                  `titre` varchar(255) NOT NULL,
+                  `tome` int(11) DEFAULT NULL,
+                  `isbn` int(11) DEFAULT NULL,
+                  `date_parution` date DEFAULT NULL,
+                  `auteur` varchar(255) DEFAULT NULL,
+                  `editeur` varchar(255) DEFAULT NULL,
+                  `distributeur` varchar(255) DEFAULT NULL,
+                  `diffuseur` varchar(255) DEFAULT NULL,
+                  `secteur` varchar(255) DEFAULT NULL,
+                  `rayon` varchar(255) DEFAULT NULL,
+                  `prix_achat` float DEFAULT NULL,
+                  `remise_achat` int(11) DEFAULT NULL,
+                  `public_ht` float DEFAULT NULL,
+                  `public_ttc` float DEFAULT NULL,
+                  `quantite_stock` int(11) DEFAULT NULL,
+                  `quantite_disponible` int(11) DEFAULT NULL,
+                  `quantite_depot_ext` int(11) DEFAULT NULL,
+                  `quantite_reservation` int(11) DEFAULT NULL,
+                  `id_stock` int(11) NOT NULL,
+                  PRIMARY KEY (`id_article`),
+                  KEY `article_stock0_FK` (`id_stock`),
+                  CONSTRAINT `article_stock0_FK` FOREIGN KEY (`id_stock`) REFERENCES `stock` (`id_stock`)
+                ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+            </pma:table>
+            <pma:table name="Avoir">
+                CREATE TABLE `Avoir` (
+                  `id_achat` int(11) NOT NULL,
+                  `id_article` int(11) NOT NULL,
+                  PRIMARY KEY (`id_achat`,`id_article`),
+                  KEY `Avoir_article1_FK` (`id_article`),
+                  CONSTRAINT `Avoir_achat_direct0_FK` FOREIGN KEY (`id_achat`) REFERENCES `achat_direct` (`id_achat`),
+                  CONSTRAINT `Avoir_article1_FK` FOREIGN KEY (`id_article`) REFERENCES `article` (`id_article`)
+                ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+            </pma:table>
+            <pma:table name="boisson">
+                CREATE TABLE `boisson` (
+                  `id_boisson` int(11) NOT NULL AUTO_INCREMENT,
+                  `nom_boisson` varchar(50) NOT NULL,
+                  `prix_boisson` float NOT NULL,
+                  `quantite_boisson_vente` int(11) NOT NULL,
+                  `id_vente` int(11) NOT NULL,
+                  PRIMARY KEY (`id_boisson`),
+                  UNIQUE KEY `boisson_vente0_AK` (`id_vente`),
+                  CONSTRAINT `boisson_vente0_FK` FOREIGN KEY (`id_vente`) REFERENCES `vente` (`id_vente`)
+                ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+            </pma:table>
+            <pma:table name="categorie">
+                CREATE TABLE `categorie` (
+                  `id_categorie` int(11) NOT NULL AUTO_INCREMENT,
+                  `manga` tinyint(1) DEFAULT NULL,
+                  `comics` tinyint(1) DEFAULT NULL,
+                  `franco_belge` tinyint(1) DEFAULT NULL,
+                  `roman_graphique` tinyint(1) DEFAULT NULL,
+                  `alternatif` tinyint(1) DEFAULT NULL,
+                  `docu_bd` tinyint(1) DEFAULT NULL,
+                  `album` tinyint(1) DEFAULT NULL,
+                  `activitee` tinyint(1) DEFAULT NULL,
+                  `divers` tinyint(1) NOT NULL,
+                  `roman` tinyint(1) NOT NULL,
+                  PRIMARY KEY (`id_categorie`)
+                ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+            </pma:table>
+            <pma:table name="client">
+                CREATE TABLE `client` (
+                  `id_client` int(11) NOT NULL AUTO_INCREMENT,
+                  `nom` varchar(50) NOT NULL,
+                  `prenom` varchar(50) NOT NULL,
+                  `age` int(11) DEFAULT NULL,
+                  `sexe` varchar(50) DEFAULT NULL,
+                  `rue` varchar(250) DEFAULT NULL,
+                  `code_postall` int(11) DEFAULT NULL,
+                  `ville` varchar(250) DEFAULT NULL,
+                  `mail` varchar(250) DEFAULT NULL,
+                  `tel_fixe` int(11) DEFAULT NULL,
+                  `tel_mobile` int(11) DEFAULT NULL,
+                  PRIMARY KEY (`id_client`)
+                ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+            </pma:table>
+            <pma:table name="commande_client">
+                CREATE TABLE `commande_client` (
+                  `id_commande_client` int(11) NOT NULL AUTO_INCREMENT,
+                  `date` date NOT NULL,
+                  `prix_total` int(11) NOT NULL,
+                  `date_vente_commande` date NOT NULL,
+                  `id_client` int(11) NOT NULL,
+                  `id_vente` int(11) NOT NULL,
+                  PRIMARY KEY (`id_commande_client`),
+                  UNIQUE KEY `commande_client_vente0_AK` (`id_vente`),
+                  KEY `commande_client_client0_FK` (`id_client`),
+                  CONSTRAINT `commande_client_client0_FK` FOREIGN KEY (`id_client`) REFERENCES `client` (`id_client`),
+                  CONSTRAINT `commande_client_vente1_FK` FOREIGN KEY (`id_vente`) REFERENCES `vente` (`id_vente`)
+                ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+            </pma:table>
+            <pma:table name="contient">
+                CREATE TABLE `contient` (
+                  `id_article` int(11) NOT NULL,
+                  `id_commande_client` int(11) NOT NULL,
+                  PRIMARY KEY (`id_article`,`id_commande_client`),
+                  KEY `contient_commande_client1_FK` (`id_commande_client`),
+                  CONSTRAINT `contient_article0_FK` FOREIGN KEY (`id_article`) REFERENCES `article` (`id_article`),
+                  CONSTRAINT `contient_commande_client1_FK` FOREIGN KEY (`id_commande_client`) REFERENCES `commande_client` (`id_commande_client`)
+                ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+            </pma:table>
+            <pma:table name="depot_exterieur">
+                CREATE TABLE `depot_exterieur` (
+                  `id_depot` int(11) NOT NULL AUTO_INCREMENT,
+                  `emprunteur` varchar(250) NOT NULL,
+                  `titre` varchar(250) NOT NULL,
+                  `date_depot` date NOT NULL,
+                  `date_rappel` date NOT NULL,
+                  `etat_depot` varchar(250) NOT NULL,
+                  `id_stock` int(11) NOT NULL,
+                  PRIMARY KEY (`id_depot`),
+                  KEY `depot_exterieur_stock0_FK` (`id_stock`),
+                  CONSTRAINT `depot_exterieur_stock0_FK` FOREIGN KEY (`id_stock`) REFERENCES `stock` (`id_stock`)
+                ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+            </pma:table>
+            <pma:table name="dessert_divers">
+                CREATE TABLE `dessert_divers` (
+                  `id_dessert_divers` int(11) NOT NULL AUTO_INCREMENT,
+                  `nom_dessert_divers` varchar(50) NOT NULL,
+                  `prix_dessert_divers` float NOT NULL,
+                  `quantite` int(11) NOT NULL,
+                  `id_vente` int(11) NOT NULL,
+                  PRIMARY KEY (`id_dessert_divers`),
+                  UNIQUE KEY `dessert_divers_vente0_AK` (`id_vente`),
+                  CONSTRAINT `dessert_divers_vente0_FK` FOREIGN KEY (`id_vente`) REFERENCES `vente` (`id_vente`)
+                ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+            </pma:table>
+            <pma:table name="historique_client">
+                CREATE TABLE `historique_client` (
+                  `id_historique` int(11) NOT NULL AUTO_INCREMENT,
+                  `titre` varchar(255) NOT NULL,
+                  `tome` int(11) DEFAULT NULL,
+                  `date` date NOT NULL,
+                  `chiffre_affaire` int(11) NOT NULL,
+                  `remise_fidelitee` int(11) NOT NULL,
+                  `retour_client` date DEFAULT NULL,
+                  `depot` varchar(250) NOT NULL,
+                  `id_client` int(11) NOT NULL,
+                  PRIMARY KEY (`id_historique`),
+                  UNIQUE KEY `historique_client_client0_AK` (`id_client`),
+                  CONSTRAINT `historique_client_client0_FK` FOREIGN KEY (`id_client`) REFERENCES `client` (`id_client`)
+                ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+            </pma:table>
+            <pma:table name="mode_paiement">
+                CREATE TABLE `mode_paiement` (
+                  `id_paiement` int(11) NOT NULL AUTO_INCREMENT,
+                  `especes` float DEFAULT NULL,
+                  `carte_bleu` float DEFAULT NULL,
+                  `cheques` float DEFAULT NULL,
+                  `ticket_lire` float DEFAULT NULL,
+                  `ticket_resto` float NOT NULL,
+                  `arrhes` float DEFAULT NULL,
+                  `virement` float DEFAULT NULL,
+                  `remise_forfaitaire` float DEFAULT NULL,
+                  `avoir` float DEFAULT NULL,
+                  `bon_achat` float NOT NULL,
+                  `paiement_multiple` varchar(250) DEFAULT NULL,
+                  `id_vente` int(11) NOT NULL,
+                  PRIMARY KEY (`id_paiement`),
+                  KEY `mode_paiement_vente0_FK` (`id_vente`),
+                  CONSTRAINT `mode_paiement_vente0_FK` FOREIGN KEY (`id_vente`) REFERENCES `vente` (`id_vente`)
+                ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+            </pma:table>
+            <pma:table name="reception_commande">
+                CREATE TABLE `reception_commande` (
+                  `id_reception` int(11) NOT NULL AUTO_INCREMENT,
+                  `date_reception` date NOT NULL,
+                  `id_stock` int(11) NOT NULL,
+                  PRIMARY KEY (`id_reception`),
+                  KEY `reception_commande_stock0_FK` (`id_stock`),
+                  CONSTRAINT `reception_commande_stock0_FK` FOREIGN KEY (`id_stock`) REFERENCES `stock` (`id_stock`)
+                ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+            </pma:table>
+            <pma:table name="relation_categorie">
+                CREATE TABLE `relation_categorie` (
+                  `id_categorie` int(11) NOT NULL,
+                  `id_secteur` int(11) NOT NULL,
+                  PRIMARY KEY (`id_categorie`,`id_secteur`),
+                  KEY `relation_categorie_secteur1_FK` (`id_secteur`),
+                  CONSTRAINT `relation_categorie_categorie0_FK` FOREIGN KEY (`id_categorie`) REFERENCES `categorie` (`id_categorie`),
+                  CONSTRAINT `relation_categorie_secteur1_FK` FOREIGN KEY (`id_secteur`) REFERENCES `secteur` (`id_secteur`)
+                ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+            </pma:table>
+            <pma:table name="repas">
+                CREATE TABLE `repas` (
+                  `id_repas` int(11) NOT NULL AUTO_INCREMENT,
+                  `nom_repas` varchar(255) NOT NULL,
+                  `prix_repas` float NOT NULL,
+                  `quantite` int(11) NOT NULL,
+                  `id_vente` int(11) NOT NULL,
+                  PRIMARY KEY (`id_repas`),
+                  UNIQUE KEY `repas_vente0_AK` (`id_vente`),
+                  CONSTRAINT `repas_vente0_FK` FOREIGN KEY (`id_vente`) REFERENCES `vente` (`id_vente`)
+                ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+            </pma:table>
+            <pma:table name="secteur">
+                CREATE TABLE `secteur` (
+                  `id_secteur` int(11) NOT NULL AUTO_INCREMENT,
+                  `bd` tinyint(1) DEFAULT NULL,
+                  `jeunesse` tinyint(1) DEFAULT NULL,
+                  `roman` tinyint(1) DEFAULT NULL,
+                  `occasion` tinyint(1) DEFAULT NULL,
+                  `id_stock` int(11) NOT NULL,
+                  PRIMARY KEY (`id_secteur`),
+                  KEY `secteur_stock0_FK` (`id_stock`),
+                  CONSTRAINT `secteur_stock0_FK` FOREIGN KEY (`id_stock`) REFERENCES `stock` (`id_stock`)
+                ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+            </pma:table>
+            <pma:table name="stock">
+                CREATE TABLE `stock` (
+                  `id_stock` int(11) NOT NULL AUTO_INCREMENT,
+                  `titre` varchar(255) NOT NULL,
+                  `tome` int(11) DEFAULT NULL,
+                  `quantite` int(11) NOT NULL,
+                  `auteur` varchar(255) DEFAULT NULL,
+                  `editeur` varchar(255) DEFAULT NULL,
+                  `isbn` int(11) DEFAULT NULL,
+                  `prix_achat` float DEFAULT NULL,
+                  `chiffre_affaire_stock` int(11) DEFAULT NULL,
+                  PRIMARY KEY (`id_stock`)
+                ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+            </pma:table>
+            <pma:table name="vente">
+                CREATE TABLE `vente` (
+                  `id_vente` int(11) NOT NULL AUTO_INCREMENT,
+                  `prix_ht` float NOT NULL,
+                  `taux_tva` float NOT NULL,
+                  `total_tva` float NOT NULL,
+                  `prix_ttc` float NOT NULL,
+                  `quantite` int(11) NOT NULL,
+                  `quantite_boisson_vente` int(11) NOT NULL,
+                  `quantite_dessert_divers_vente` int(11) NOT NULL,
+                  `date` date NOT NULL,
+                  `date_vente_commande` date NOT NULL,
+                  `id_repas` int(11) NOT NULL,
+                  `id_boisson` int(11) NOT NULL,
+                  `id_dessert_divers` int(11) NOT NULL,
+                  `id_achat` int(11) NOT NULL,
+                  `id_commande_client` int(11) NOT NULL,
+                  PRIMARY KEY (`id_vente`),
+                  UNIQUE KEY `vente_repas0_AK` (`id_repas`),
+                  UNIQUE KEY `vente_boisson1_AK` (`id_boisson`),
+                  UNIQUE KEY `vente_dessert_divers2_AK` (`id_dessert_divers`),
+                  UNIQUE KEY `vente_achat_direct3_AK` (`id_achat`),
+                  UNIQUE KEY `vente_commande_client4_AK` (`id_commande_client`),
+                  CONSTRAINT `vente_achat_direct3_FK` FOREIGN KEY (`id_achat`) REFERENCES `achat_direct` (`id_achat`),
+                  CONSTRAINT `vente_boisson1_FK` FOREIGN KEY (`id_boisson`) REFERENCES `boisson` (`id_boisson`),
+                  CONSTRAINT `vente_commande_client4_FK` FOREIGN KEY (`id_commande_client`) REFERENCES `commande_client` (`id_commande_client`),
+                  CONSTRAINT `vente_dessert_divers2_FK` FOREIGN KEY (`id_dessert_divers`) REFERENCES `dessert_divers` (`id_dessert_divers`),
+                  CONSTRAINT `vente_repas0_FK` FOREIGN KEY (`id_repas`) REFERENCES `repas` (`id_repas`)
+                ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+            </pma:table>
+        </pma:database>
+    </pma:structure_schemas>
+
+    <!--
+    - Base de données :  'migou'
+    -->
+    <database name="migou">
+        <!-- Table achat_direct -->
+        <!-- Table article -->
+        <!-- Table Avoir -->
+        <!-- Table boisson -->
+        <!-- Table categorie -->
+        <!-- Table client -->
+        <!-- Table commande_client -->
+        <!-- Table contient -->
+        <!-- Table depot_exterieur -->
+        <!-- Table dessert_divers -->
+        <!-- Table historique_client -->
+        <!-- Table mode_paiement -->
+        <!-- Table reception_commande -->
+        <!-- Table relation_categorie -->
+        <!-- Table repas -->
+        <!-- Table secteur -->
+        <!-- Table stock -->
+        <!-- Table vente -->
+    </database>
+</pma_xml_export>
