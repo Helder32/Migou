@@ -21,7 +21,7 @@ class CreateFournisseursTable extends Migration
             $table->string('rue', 100)->nullable();
             $table->string('ville', 100)->nullable();
             $table->integer('code_postal', 15)->nullable();
-            $table->string('mail', 100)->nullable();
+            $table->string('mail', 100)->nullable()->unique();
             $table->string('tel_fournisseur', 15)->nullable();
             $table->string('tel_contact', 15)->nullable();
             $table->string('nom_contact', 100)->nullable();

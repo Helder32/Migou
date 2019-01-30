@@ -26,7 +26,7 @@ class CreateClientsTable extends Migration
             $table->integer('code_postal', 10)->nullable();
             $table->integer('age', 100)->nullable();
             $table->string('sexe', 100)->nullable();
-            $table->string('mail', 100)->nullable();
+            $table->string('mail', 100)->nullable()->unique();
             $table->string('tel_fixe', 15)->nullable();
             $table->string('tel_mobile', 15)->nullable();
 

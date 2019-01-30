@@ -18,7 +18,7 @@ class CreateArticlesTable extends Migration
             $table->timestamps();
             $table->string('titre_livre', 100)->nullable();
             $table->float('tome_livre')->nullable();
-            $table->integer('isbn')->nullable();
+            $table->integer('isbn')->nullable()->unique();
             $table->date('date_parution')->nullable();
             $table->string('auteur_livre', 100)->nullable();
             $table->string('editeur', 100)->nullable();
