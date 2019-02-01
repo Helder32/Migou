@@ -21,7 +21,7 @@ class CreateAchatsTable extends Migration
             $table->date('date_paiement')->nullable();
             $table->date('date_commande')->nullable();
             $table->date('date_livraison')->nullable();
-            $table->tinyInteger('statut_paiement')->nullable();
+            $table->boolean('statut_paiement')->nullable()->default(false);
             $table->date('date_jour');
             $table->integer('id_client')->index();
         });

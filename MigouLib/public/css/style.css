@@ -1,0 +1,56 @@
+.bg {
+    /* The image used */
+    background-image: url("../svg/beatriz-perez-moya-111685-unsplash.jpg");
+
+    /* Full height */
+    height: 100%;
+    width: 100%;
+
+    /* Center and scale the image nicely */
+    background-position: center fixed;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+
+.sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: rgb(9, 14, 36);
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+}  
+
+
+.sidenav a {
+    padding: 8px 8px 10px 32px;
+    text-decoration: none;
+    font-size: 18px;
+    color: #a8a7a7;
+    display: block;
+    transition: 0.3s;
+}  
+
+
+.sidenav a:hover {
+    color: #15ff00;
+}
+
+
+.sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+}
+
+@media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
+}

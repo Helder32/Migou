@@ -19,7 +19,6 @@ class CreateClientsTable extends Migration
             $table->string('nom_client', 100);
             $table->string('prenom_client', 100);
             $table->string('raison_sociale', 100)->nullable();
-            $table->string('raison_sociale', 100)->nullable();
             $table->string('numero_rue', 100)->nullable();
             $table->string('rue', 100)->nullable();
             $table->string('ville', 100)->nullable();
