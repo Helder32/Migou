@@ -19,7 +19,7 @@ class CreateArticleFournisseur extends Migration
             $table->integer('fk_article')->unsigned()->index();
             $table->foreign('fk_article')->references('id_article')->on('articles')->ondelete();
             $table->integer('fk_fournisseur')->unsigned()->index();
-            $table->foreign('fk_article')->references('id_article')->on('articles')->ondelete();
+            $table->foreign('fk_fournisseur')->references('id_fournisseur')->on('fournisseurs')->ondelete();
             $table->integer('quantite');
             $table->date('date');
         });

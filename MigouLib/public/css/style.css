@@ -7,7 +7,7 @@
     width: 100%;
 
     /* Center and scale the image nicely */
-    background-position: center fixed;
+    background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
 }
@@ -23,7 +23,7 @@
     background-color: rgb(9, 14, 36);
     overflow-x: hidden;
     transition: 0.5s;
-    padding-top: 60px;
+    padding-top: 50px;
 }  
 
 
@@ -54,3 +54,19 @@
     .sidenav {padding-top: 15px;}
     .sidenav a {font-size: 18px;}
 }
+
+
+#navbarDropdownMenuLink {
+    padding: 8px 8px 10px 32px;
+    text-decoration: none;
+    font-size: 18px;
+    color: #a7a7a8;
+    display: block;
+    transition: 0.3s;
+}
+
+
+#navbarDropdownMenuLink:hover {
+    color: #15ff00;
+}
+

@@ -24,34 +24,93 @@
 </head>
 
 <body>
+
     
     <!-- div which contains the backround-image -->
     <div class="bg">
-
+        
         <!-- content of the sidenav --> 
         <div id="mySidenav" class="sidenav">
             <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-            <a href="{{ route('home') }}">{{ __('Accueil') }}</a>
-            <a href="{{ route('login') }}">{{ __('Login') }}</a>
-            <a href="{{ route('register') }}">{{ __('Register') }}</a>
-            <a href="#">Vente librairie</a>
-            <a href="#">Vente restauration</a>
-            <a href="#">Gestion fiches clients</a>
-            <a href="#">Gestion commande</a>
-            <a href="#">Rechercher un titre</a>
-            <a href="#">Stock</a>
-            <a href="#">Dépôt</a>
-            <a href="#">Tableau de bord</a>
 
-        </div>
+            <a href="{{ route('home') }}">{{ __('Accueil') }}</a>
+            
+            <a href="{{ route('login') }}">{{ __('Login') }}</a>
+            
+            <a href="{{ route('register') }}">{{ __('Register') }}</a>
+            
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" 
+                    aria-expanded="false">Vente librairie</a>
+                    <div class="dropdown-menu dropdown-dark" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="#">Ticket de caisse</a>
+                        <a class="dropdown-item" href="#">Facture comptant</a>
+                        <a class="dropdown-item" href="#">Bon de livraison</a>
+                        <a class="dropdown-item" href="#">Facture différée</a>
+                        <a class="dropdown-item" href="#">Devis</a>
+                    </div>
+            </li>
+            
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" 
+                    aria-expanded="false">Vente restauration</a>
+                    <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="#">Repas</a>
+                        <a class="dropdown-item" href="#">Boissons</a>
+                        <a class="dropdown-item" href="#">Desserts et divers</a>
+                        <a class="dropdown-item" href="#">Menu complet</a>
+                    </div>
+            </li>
+            
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" 
+                    aria-expanded="false">Gestion fiches clients</a>
+                    <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="#">Créer un compte</a>
+                        <a class="dropdown-item" href="#">Chercher un compte</a>
+                    </div>
+            </li>
+            
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" 
+                    aria-expanded="false">Gestion des commandes</a>
+                    <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="#">Réception des commandes</a>
+                        <a class="dropdown-item" href="#">Réception des nouveautées</a>
+                        <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" 
+                            aria-expanded="false">Chercher une commande</a>
+                            <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
+                                <a class="dropdown-item" href="#">Librairie</a>
+                                <a class="dropdown-item" href="#">Client</a>
+                                <a class="dropdown-item" href="#">Toutes les commandes en cours</a>
+                            </div>
+                            
+                    </div>
+            </li>
+
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" 
+                    aria-expanded="false">Consulter le stock</a>
+                        <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
+                            <a class="dropdown-item" href="#">Par secteur</a>
+                            <a class="dropdown-item" href="#">Dépôts</a>
+                            
+                        </div>
+                            
+            </li>
+            
+
+            <a href="#">Tableau de bord</a>
+            <a href="#">Rechercher un titre</a>
+
+        </div>    
 
 
         <span style="font-size:35px;cursor:pointer" onclick="openNav()">&#9776;
             <a class="navbar-brand" href="{{ url('/') }}">{{ config('app_name', 'MigouLib') }}</a>
 
         </span>
-
-
+        
         <script>
             function openNav() {
                 document.getElementById("mySidenav").style.width = "20%";
@@ -65,13 +124,13 @@
 
 
         <div id="app">  
-
+            
             <div class="container">
 
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                    <span class="navbar-toggler-icon"></span>
+                <main class="py-4">
+                    @yield('content')
+                </main>
 
-                </button>
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     
@@ -102,15 +161,13 @@
 
                                 </form>
                             </div>
-                        </li>
+                        </li>      
                     @endguest
                 </div>
             </div>
         </div>
     </div>
-        <main class="py-4">
-            @yield('content')
-        </main>
+
 
 </body>
 </html>
